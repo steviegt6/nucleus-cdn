@@ -259,6 +259,8 @@
 
   if (config.supportsAcrylic === true)
     mainSettings.push(experimental([ 'Acrylic Window', '(Windows Only) Applies the Windows acrylic effect to Discord.', 'acrylicWindow', false ]));
+  else
+    mainSettings.push(experimental([ 'Acrylic Support', '(Windows Only) Install required files for Acrylic windows.', 'installAcrylic', false ]));
 
   const makeSwitch = (listener, initial = false, disabled = false) => {
     const switchEl = document.createElement('label');
