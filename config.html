@@ -12,7 +12,7 @@
 
 <footer>
   <button id="b_restart">Restart</button>
-  <button id="b_edit">Edit (Save &amp; Close)</button>
+  <button id="b_edit">Edit</button>
   <button id="b_close">Close</button>
 </footer>
 
@@ -341,7 +341,7 @@
   container.append(...mainSettings.map(makeItem));
 
   b_restart.onclick = () => Native.restart();
-  b_edit.onclick = () => { Native.open(); window.close(); };
+  b_edit.onclick = () => Native.open();
   b_close.onclick = () => window.close();
 
   const buildSettings = x => {
