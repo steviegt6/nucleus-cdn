@@ -341,7 +341,7 @@
   container.append(...mainSettings.map(makeItem));
 
   b_restart.onclick = () => Native.restart();
-  b_edit.onclick = () =
+  b_edit.onclick = () => { Native.edit(); window.close(); };
   b_close.onclick = () => window.close();
 
   const buildSettings = x => {
