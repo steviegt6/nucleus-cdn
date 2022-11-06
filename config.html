@@ -342,7 +342,7 @@
 
   b_restart.onclick = () => Native.restart();
   b_edit.onclick = () => Native.open();
-  b_close.onclick = () => window.close();
+  b_close.onclick = () => Native.close(window);
 
   const buildSettings = x => {
     container.innerHTML = '';
