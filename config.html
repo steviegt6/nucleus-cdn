@@ -649,15 +649,16 @@ You need to restart (click the restart button) after changing. */`,
       document.getElementById("content-column").appendChild(contentColumn);
     }
 
-    function div(elements, classNames = []) {
+    function div(elementsOrString, classNames = []) {
       const div = document.createElement("div");
       if (classNames && classNames.length > 0) div.classList.add(...classNames);
-      div.append(...elements);
+      if (typeof elementsOrString === "string") div.innerHTML = elementsOrString;
+      else div.append(...elementsOrString);
 
       return div;
     }
 
-    function sectionTitleH2(title) {
+    function sectionTitle(title) {
       const header = document.createElement("h2");
       header.classList.add("h1-34Txb0");
       header.classList.add("title-3hptVQ");
@@ -671,11 +672,68 @@ You need to restart (click the restart button) after changing. */`,
       ], ["sectionTitle-3j2YI1"]);
     }
 
-    function divider() {
+    function subSectionTitle(title) {
+      const header = document.createElement("h3");
+      header.classList.add("h5-2RwDNl");
+      header.classList.add("eyebrow-I4BG42");
+      header.classList.add("marginBottom8-emkd0_");
+      header.innerHTML = title;
+
+      return header;
+    }
+
+    function divider(margin) {
       const divider = document.createElement("div");
       divider.classList.add("divider-_0um2u");
-      divider.classList.add("marginTop40-Q4o1tS");
+      divider.classList.add("dividerDefault-3C2-ws");
+      if (margin) divider.classList.add("marginTop40-Q4o1tS");
       return divider;
+    }
+
+    function section(sub) {
+      return div([...sub], ["children-1xdcWE"]);
+    }
+
+    function subSection(elements) {
+      return div([
+        div([
+          // div([
+            ...elements
+          // ], ["marginBottom4-1fdMNe"])
+        ], [])
+      ], ["marginBottom40-fvAlAV"]);
+    }
+
+    function innerLabel(labelText) {
+      const label = document.createElement("label");
+      label.classList.add("title-2dsDLn");
+      // label.for = uid guhhh
+      label.innerHTML = labelText;
+
+      return div([
+        label
+      ], ["labelRow-2jl9gK"]);
+    }
+
+    function label(labelText) {
+      return div([
+        innerLabel(labelText),
+        divider()
+      ], []);
+    }
+
+    function labelWithNote(labelText, noteText) {
+      return div([
+        innerLabel(labelText),
+        note(noteText),
+        divider()
+      ], ["container-1zDvAE", "marginTop8-24uXGp", "marginBottom20-315RVT"]);
+    }
+
+    function note(noteText) {
+      return div([
+        div(noteText, ["colorStandard-1Xxp1s", "size14-k_3Hy4", "description-30xx7u", "formText-2ngGjI", "modeDefault-2fEh7a"])
+      ], ["note-2C4pGr"]);
     }
 
     function addHeader(headerName) {
@@ -747,14 +805,20 @@ You need to restart (click the restart button) after changing. */`,
     addButton("nucleus-settings", "Settings");
     makeContentColumn("nucleus-settings", div([
       div([
-        sectionTitleH2("Settings TEST!!!")
+        sectionTitle("Settings TEST!!!"),
+        section([
+          subSection([
+            subSectionTitle("Test title"),
+            labelWithNote("Test label", "Test note.")
+          ])
+        ])
       ])
     ]));
 
     addButton("nucleus-theming", "Theming");
     makeContentColumn("nucleus-theming", div([
       div([
-        sectionTitleH2("Theming TEST!!!")
+        sectionTitle("Theming TEST!!!")
       ])
     ]));
 
