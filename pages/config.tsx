@@ -10,7 +10,7 @@ import InfoLine from "../components/Config/InfoLine/infoLine";
 import SettingsSubPage from "../components/Config/SubPages/settingSubPage";
 
 export default function Config() {
-    const [category, setCategory] = useState("");
+    const [category, setCategory] = useState("nucleus-settings");
 
     useEffect(() => {
         console.log(category);
