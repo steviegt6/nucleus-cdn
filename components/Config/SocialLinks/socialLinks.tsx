@@ -23,7 +23,7 @@ export default function SocialLinks() {
     );
 }
 
-function Social({ link, icon }: { link: string; icon: React.ReactElement }) {
+export function Social({ link, icon }: { link: string; icon: React.ReactElement }) {
     return (
         <a className={`${discord.anchor} ${discord.anchorUnderlineOnHover} ${discord.link}`} href={link} rel="noreferrer noopener" target="_blank">
             {icon}
