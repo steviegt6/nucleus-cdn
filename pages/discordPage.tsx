@@ -1,4 +1,3 @@
-import "../styles/discordPage.scss";
 import * as discord from "../styles/discord";
 import TitleBar from "../components/TitleBar/titleBar";
 

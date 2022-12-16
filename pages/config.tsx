@@ -7,7 +7,6 @@ import Button from "../components/Config/Button/button";
 import Separator from "../components/Config/Separator/separator";
 import SocialLinks from "../components/Config/SocialLinks/socialLinks";
 import InfoLine from "../components/Config/InfoLine/infoLine";
-import { useRouter } from "next/router";
 
 export default function Config() {
     const [category, setCategory] = useState("");
@@ -48,6 +47,7 @@ function SidebarRegion({ category, setCategory }: { category: string; setCategor
 }
 
 function SRContent({ category, setCategory }: { category: string; setCategory: Dispatch<SetStateAction<string>> }) {
+    // const content: ()
     return (
         <>
             <Header text="nucleus Config" />
@@ -71,16 +71,17 @@ function SRContent({ category, setCategory }: { category: string; setCategory: D
 }
 
 function TitleInfoLine() {
-    const { asPath } = useRouter();
-    const oaVersion = new URLSearchParams(asPath.substring(asPath.indexOf("?"))).get("v");
+    const [version, setVersion] = useState("");
 
-    return <InfoLine>nucleus {oaVersion}</InfoLine>;
+    useEffect(() => setVersion(new URLSearchParams(window.location.search).get("v") ?? ""), []);
+
+    return <InfoLine>nucleus {version}</InfoLine>;
 }
 
 function ContentRegion({ category, setCategory }: { category: string; setCategory: Dispatch<SetStateAction<string>> }) {
     return (
         <div className={`${discord.contentRegion}`}>
-            <div className={`${discord.contentRegionScroller} ${discord.contentRegionShownSidebar} ${discord.auto} ${discord.scrollerBase}`} dir="ltr" style={{ overflow: "hidden scroll;", paddingRight: "0px" }}>
+            <div className={`${discord.contentRegionScroller} ${discord.contentRegionShownSidebar} ${discord.auto} ${discord.scrollerBase}`} dir="ltr" style={{ overflow: "hidden scroll", paddingRight: "0px" }}>
                 <CRContent category={category} setCategory={setCategory} />
             </div>
         </div>
