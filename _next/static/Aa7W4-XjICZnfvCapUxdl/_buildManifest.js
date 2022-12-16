@@ -1,0 +1,1 @@
+self.__BUILD_MANIFEST={__rewrites:{beforeFiles:[],afterFiles:[],fallback:[]},"/_error":["static/chunks/pages/_error-8353112a01355ec2.js"],"/config":["static/chunks/pages/config-c6e78d1905cecd87.js"],"/discordPage":["static/chunks/pages/discordPage-85aeecd19b1394c5.js"],sortedPages:["/_app","/_error","/config","/discordPage"]},self.__BUILD_MANIFEST_CB&&self.__BUILD_MANIFEST_CB();
