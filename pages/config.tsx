@@ -7,6 +7,7 @@ import Button from "../components/Config/Button/button";
 import Separator from "../components/Config/Separator/separator";
 import SocialLinks from "../components/Config/SocialLinks/socialLinks";
 import InfoLine from "../components/Config/InfoLine/infoLine";
+import SettingsSubPage from "../components/Config/SubPages/settingSubPage";
 
 export default function Config() {
     const [category, setCategory] = useState("");
@@ -47,7 +48,6 @@ function SidebarRegion({ category, setCategory }: { category: string; setCategor
 }
 
 function SRContent({ category, setCategory }: { category: string; setCategory: Dispatch<SetStateAction<string>> }) {
-    // const content: ()
     return (
         <>
             <Header text="nucleus Config" />
@@ -89,5 +89,9 @@ function ContentRegion({ category, setCategory }: { category: string; setCategor
 }
 
 function CRContent({ category, setCategory }: { category: string; setCategory: Dispatch<SetStateAction<string>> }) {
-    return <div></div>;
+    return (
+        <>
+            <SettingsSubPage categoryId="nucleus-settings" category={category} />
+        </>
+    );
 }
