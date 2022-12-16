@@ -8,6 +8,7 @@ import Separator from "../components/Config/Separator/separator";
 import SocialLinks from "../components/Config/SocialLinks/socialLinks";
 import InfoLine from "../components/Config/InfoLine/infoLine";
 import SettingsSubPage from "../components/Config/SubPages/settingSubPage";
+import AboutSubPage from "../components/Config/SubPages/aboutSubPage";
 
 export default function Config() {
     const [category, setCategory] = useState("nucleus-settings");
@@ -92,6 +93,7 @@ function CRContent({ category, setCategory }: { category: string; setCategory: D
     return (
         <>
             <SettingsSubPage categoryId="nucleus-settings" category={category} />
+            <AboutSubPage categoryId="nucleus-about" category={category} />
         </>
     );
 }
