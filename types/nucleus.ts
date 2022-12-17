@@ -22,4 +22,5 @@ export interface INative {
     closeWindow(): void;
     maximizeWindow(): void;
     minimizeWindow(): void;
+    initializeEnvironment(): void;
 }

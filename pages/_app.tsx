@@ -1,9 +1,14 @@
+import { useEffect } from "react";
 import "../styles/styles.scss";
 import { Config, INative } from "../types/nucleus";
 
 export default function MyApp({ Component, pageProps }: { Component: any; pageProps: any }) {
     if (typeof window === "undefined") serverStubNative();
     else if (typeof Native === "undefined") clientStubNative();
+
+    useEffect(() => {
+        Native.initializeEnvironment();
+    });
 
     return <Component {...pageProps} />;
 }
@@ -40,6 +45,10 @@ function serverStubNative() {
         }
 
         minimizeWindow(): void {
+            throw new Error("Method not implemented.");
+        }
+
+        initializeEnvironment(): void {
             throw new Error("Method not implemented.");
         }
     }
@@ -88,6 +97,10 @@ function clientStubNative() {
 
         minimizeWindow(): void {
             console.log("Requested: Native.minimizeWindow");
+        }
+
+        initializeEnvironment(): void {
+            console.log("Requested: Native.initializeEnvironment");
         }
     }
 
