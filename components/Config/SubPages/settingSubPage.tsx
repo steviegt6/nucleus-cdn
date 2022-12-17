@@ -58,9 +58,9 @@ export default function SettingsSubPage({ categoryId, category }: { categoryId: 
                 <SwitchOption labelText="Synced theming" noteText="Applies your theming to the splash screen and nucleus settings menu." value={themeSync} setValue={setThemeSync} topMargin />
 
                 <OptionHeader title="Launch" />
-                <SwitchOption labelText="Quickstart" noteText="Makes Discord start faster by skipping some steps, such as checking updates upon starting." value={quickstart} setValue={setQuickstart} topMargin />
-                <SwitchOption labelText="Multi-instance" noteText="Allows Discord to have multiple instances/windows open at once." value={multiInstance} setValue={setMultiInstance} />
-                <SwitchOption labelText="shelter" noteText="Injects shelter, a client mod developed by uwu.network (ex-Cumcord developers)." value={injectShelter} setValue={setInjectShelter} />
+                <SwitchOption labelText="Quickstart" noteText="Makes Discord start faster by skipping some steps, such as checking updates upon starting." value={quickstart} setValue={setQuickstart} experimental topMargin />
+                <SwitchOption labelText="Multi-instance" noteText="Allows Discord to have multiple instances/windows open at once." value={multiInstance} setValue={setMultiInstance} experimental />
+                <SwitchOption labelText="shelter" noteText="Injects shelter, a client mod developed by uwu.network (ex-Cumcord developers)." value={injectShelter} setValue={setInjectShelter} experimental />
             </Children>
         </SubPage>
     );
