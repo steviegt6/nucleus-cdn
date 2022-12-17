@@ -10,7 +10,17 @@ export default function ThemingSubPage({ categoryId, category }: { categoryId: s
             <SectionTitle title="Theme Editor" />
             <Children>
                 <SubSection>
-                    <Editor height="74vh" language="css" theme="vs-dark" defaultValue="/* test */" />
+                    <Editor
+                        options={{
+                            minimap: {
+                                enabled: false
+                            }
+                        }}
+                        height="74vh"
+                        language="css"
+                        theme="vs-dark"
+                        value="/* test */"
+                    />
                 </SubSection>
             </Children>
         </SubPage>
