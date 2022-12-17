@@ -12,6 +12,7 @@ import AboutSubPage from "../components/Config/SubPages/aboutSubPage";
 import MITLicenseSubPage from "../components/Config/SubPages/mitLicenseSubPage";
 import ApacheLicenseSubPage from "../components/Config/SubPages/apacheLicenseSubPage";
 import CCLicenseSubPage from "../components/Config/SubPages/ccLicenseSubPage";
+import ThemingSubPage from "../components/Config/SubPages/themingSubPage";
 
 export default function Config() {
     const [category, setCategory] = useState("nucleus-settings");
@@ -96,6 +97,7 @@ function CRContent({ category, setCategory }: { category: string; setCategory: D
     return (
         <>
             <SettingsSubPage categoryId="nucleus-settings" category={category} />
+            <ThemingSubPage categoryId="nucleus-theming" category={category} />
             <AboutSubPage categoryId="nucleus-about" category={category} />
             <MITLicenseSubPage categoryId="nucleus-license-mit" category={category} />
             <ApacheLicenseSubPage categoryId="nucleus-license-apache" category={category} />
