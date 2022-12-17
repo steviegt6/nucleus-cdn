@@ -142,7 +142,7 @@ function SwitchOption({
                 <div className={`${discord.control}`}>
                     <div onClick={toggle} style={{ opacity: 1, backgroundColor: value ? enabledColor : disabledColor }} className={`${discord.controlContainer} ${discord.defaultColors} ${value ? discord.checked : ""}`}>
                         {value ? enabledSvg : disabledSvg}
-                        <input type="checkbox" className={`${discord.input}`} tabIndex={0} checked />
+                        <input type="checkbox" className={`${discord.input}`} tabIndex={0} />
                     </div>
                 </div>
             </div>

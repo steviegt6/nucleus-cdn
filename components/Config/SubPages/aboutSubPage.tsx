@@ -72,10 +72,10 @@ function ProjectWithLicense({
 }) {
     const icons: React.ReactNode[] = [];
 
-    if (githubUrl) icons.push(<GitHubIcon url={githubUrl} />);
-    if (githubSponsorUrl) icons.push(<GitHubSponsorIcon url={githubSponsorUrl} />);
-    if (patreonUrl) icons.push(<PatreonIcon url={patreonUrl} />);
-    if (koFiUrl) icons.push(<KoFiIcon url={koFiUrl} />);
+    if (githubUrl) icons.push(<GitHubIcon url={githubUrl} key="github" />);
+    if (githubSponsorUrl) icons.push(<GitHubSponsorIcon url={githubSponsorUrl} key="github-sponsor" />);
+    if (patreonUrl) icons.push(<PatreonIcon url={patreonUrl} key="patreon" />);
+    if (koFiUrl) icons.push(<KoFiIcon url={koFiUrl} key="kofi" />);
 
     return (
         <div className={`${discord.marginTop20}`}>
@@ -98,9 +98,10 @@ function ProjectWithLicense({
 
 function CombineIcons({ elements }: { elements: React.ReactNode[] }) {
     const children: React.ReactNode[] = [];
+    let divCount = 0;
 
     for (const child of elements) {
-        children.push(<div style={{ marginLeft: 4 }} />);
+        children.push(<div style={{ marginLeft: 4 }} key={divCount++} />);
         children.push(child);
     }
 
