@@ -4,6 +4,13 @@ declare global {
 
 export interface Config {
     css: string | undefined;
+
+    noTrack: boolean | undefined;
+    noTyping: boolean | undefined;
+    themeSync: boolean | undefined;
+    quickstart: boolean | undefined;
+    multiInstance: boolean | undefined;
+    injectShelter: boolean | undefined;
 }
 
 export interface INative {
