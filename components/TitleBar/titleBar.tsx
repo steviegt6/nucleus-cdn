@@ -1,6 +1,27 @@
+import { useEffect, useState } from "react";
 import * as discord from "../../styles/discord";
+import { Config } from "../../types/nucleus";
 
 export default function TitleBar() {
+    const [cachedConfig, setCachedConfig] = useState<Config>();
+
+    useEffect(() => {
+        setCachedConfig(Native.get());
+    }, []);
+
+    function exitWindowAndMaybeReload() {
+        const realConfig = Native.get();
+        let changed = false;
+
+        for (const prop of Object.getOwnPropertyNames(realConfig)) {
+            // @ts-ignore
+            changed = changed || realConfig[prop] !== cachedConfig[prop];
+        }
+
+        if (changed) Native.restart();
+        else Native.closeWindow();
+    }
+
     return (
         <div className={`${discord.typeWindows} ${discord.withFrame} ${discord.titleBar} ${discord.horizontalReverse} ${discord.flex} ${discord.directionRowReverse} ${discord.justifyStart} ${discord.alignStretch}`}>
             <div className={`${discord.wordmarkWindows} ${discord.wordmark}`}>
@@ -17,7 +38,7 @@ export default function TitleBar() {
                     </g>
                 </svg>
             </div>
-            <div aria-label="Close" role="button" className={`${discord.winButtonClose} ${discord.winButton} ${discord.flexCenter} ${discord.flex} ${discord.justifyCenter} ${discord.alignCenter}`} onClick={Native.closeWindow}>
+            <div aria-label="Close" role="button" className={`${discord.winButtonClose} ${discord.winButton} ${discord.flexCenter} ${discord.flex} ${discord.justifyCenter} ${discord.alignCenter}`} onClick={exitWindowAndMaybeReload}>
                 <svg aria-hidden="true" role="img" width="12" height="12" viewBox="0 0 12 12">
                     <polygon fill="currentColor" fillRule="evenodd" points="11 1.576 6.583 6 11 10.424 10.424 11 6 6.583 1.576 11 1 10.424 5.417 6 1 1.576 1.576 1 6 5.417 10.424 1"></polygon>
                 </svg>
