@@ -2,12 +2,15 @@ import "../styles/styles.scss";
 import { Config, INative } from "../types/nucleus";
 
 export default function MyApp({ Component, pageProps }: { Component: any; pageProps: any }) {
-    if (typeof window === "undefined") fillNative();
+    if (typeof window === "undefined") serverStubNative();
+    else if (typeof Native === "undefined") clientStubNative();
+
     return <Component {...pageProps} />;
 }
 
-function fillNative() {
-    class ServerNative implements INative {
+function serverStubNative() {
+    // Should never actually run, so be sure to throw errors.
+    class ServerStubNative implements INative {
         edit(): void {
             throw new Error("Method not implemented.");
         }
@@ -41,5 +44,53 @@ function fillNative() {
         }
     }
 
-    global.Native = new ServerNative();
+    global.Native = new ServerStubNative();
+}
+
+function clientStubNative() {
+    // May prove useful for debugging, maybe...
+    class ClientStubNative implements INative {
+        edit(): void {
+            console.log("Requested: Native.edit");
+        }
+
+        restart(): void {
+            console.log("Requested: Native.restart");
+        }
+
+        set(c: Config): void {
+            console.log("Requested: Native.set", c);
+        }
+
+        get(): Config {
+            console.log("Requested: Native.get");
+            return {
+                css: "",
+                noTrack: false,
+                noTyping: false,
+                themeSync: false,
+                quickstart: false,
+                multiInstance: false,
+                injectShelter: false
+            };
+        }
+        open(): void {
+            console.log("Requested: Native.open");
+        }
+
+        closeWindow(): void {
+            console.log("Requested: Native.closeWindow");
+        }
+
+        maximizeWindow(): void {
+            console.log("Requested: Native.maximizeWindow");
+        }
+
+        minimizeWindow(): void {
+            console.log("Requested: Native.minimizeWindow");
+        }
+    }
+
+    console.warn("Native is not defined. Using stub! This should only happen when viewing the site in a browser.");
+    global.Native = new ClientStubNative();
 }
