@@ -17,19 +17,24 @@ export default function SettingsSubPage({ categoryId, category }: { categoryId: 
         hasInitConfig.current = true;
     }, []);
 
-    // TODO: Add "Focus" - "Which aspect of the client to focus on." [performance, battery life, balanced]
+    const [supportsAcrylic, setSupportsAcrylic] = useState(config?.supportsAcrylic ?? false);
+
     const [noTrack, setNoTrack] = useState(config?.noTrack ?? true);
     const [noTyping, setNoTyping] = useState(config?.noTyping ?? false);
     const [themeSync, setThemeSync] = useState(config?.themeSync ?? true);
+    const [acrylicWindow, setAcrylicWindow] = useState(config?.acrylicWindow ?? true);
     const [cmdPreset, setCmdPreset] = useState(config?.cmdPreset ?? "perf");
     const [quickstart, setQuickstart] = useState(config?.quickstart ?? false);
     const [multiInstance, setMultiInstance] = useState(config?.multiInstance ?? false);
     const [injectShelter, setInjectShelter] = useState(config?.injectShelter ?? false);
 
     useEffect(() => {
+        setSupportsAcrylic(config?.supportsAcrylic ?? false);
+
         setNoTrack(config?.noTrack ?? true);
         setNoTyping(config?.noTyping ?? false);
         setThemeSync(config?.themeSync ?? true);
+        setAcrylicWindow(config?.acrylicWindow ?? false);
         setCmdPreset(config?.cmdPreset ?? "perf");
         setQuickstart(config?.quickstart ?? false);
         setMultiInstance(config?.multiInstance ?? false);
@@ -42,12 +47,13 @@ export default function SettingsSubPage({ categoryId, category }: { categoryId: 
         config.noTrack = noTrack;
         config.noTyping = noTyping;
         config.themeSync = themeSync;
+        config.acrylicWindow = acrylicWindow;
         config.cmdPreset = cmdPreset;
         config.quickstart = quickstart;
         config.multiInstance = multiInstance;
         config.injectShelter = injectShelter;
         Native.set(config);
-    }, [config, noTrack, noTyping, themeSync, cmdPreset, quickstart, multiInstance, injectShelter]);
+    }, [config, noTrack, noTyping, themeSync, acrylicWindow, cmdPreset, quickstart, multiInstance, injectShelter]);
 
     return (
         <SubPage categoryId={categoryId} category={category}>
@@ -59,6 +65,7 @@ export default function SettingsSubPage({ categoryId, category }: { categoryId: 
 
                 <OptionHeader title="Theming" />
                 <SwitchOption labelText="Synced theming" noteText="Applies your theming to the splash screen and nucleus settings menu." value={themeSync} setValue={setThemeSync} topMargin />
+                {supportsAcrylic ?? false ? <SwitchOption labelText="Acrylic window" noteText="(Windows Only) Applies the Windows acrylic effect to Discord using pykeio/vibe." value={acrylicWindow} setValue={setAcrylicWindow} /> : <></>}
 
                 <OptionHeader title="Launch" />
                 <RadioOption labelText="Focus" noteText="Which aspect of the client to focus on." radioOptions={{ "perf": "Performance", "battery": "Battery Life", "balanced": "Balanced" }} value={cmdPreset} setValue={setCmdPreset} topMargin />

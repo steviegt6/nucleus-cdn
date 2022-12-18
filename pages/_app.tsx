@@ -73,10 +73,12 @@ function clientStubNative() {
         get(): Config {
             console.log("Requested: Native.get");
             return {
+                supportsAcrylic: false,
                 css: "",
                 noTrack: false,
                 noTyping: false,
                 themeSync: false,
+                acrylicWindow: false,
                 cmdPreset: "perf",
                 quickstart: false,
                 multiInstance: false,

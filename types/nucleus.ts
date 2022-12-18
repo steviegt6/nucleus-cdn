@@ -3,6 +3,8 @@ declare global {
 }
 
 export interface Config {
+    supportsAcrylic: boolean | undefined;
+
     css: string | undefined;
 
     // privacy
@@ -11,6 +13,7 @@ export interface Config {
 
     // theming
     themeSync: boolean | undefined;
+    acrylicWindow: boolean | undefined;
 
     // launch
     cmdPreset: string | undefined;

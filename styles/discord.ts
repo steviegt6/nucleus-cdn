@@ -10,12 +10,6 @@ export const layers = {
     1: "layers-1YQhyW"
 };
 
-export const themeCustom = "theme-custom";
-export const fullMotion = "fullMotion";
-export const disableForcedColors = "disableForcedColors";
-export const themeDark = "theme-dark"; // todo: lol
-export const platformWin = "platform-win"; // todo: lol
-export const fontSize16 = "font-size-16"; // todo: lol
 export const appMount = "appMount-2yBXZl";
 export const bg = "bg-1QIAus";
 export const typeWindows = "typeWindows-2-g3UY";
