@@ -5,9 +5,15 @@ declare global {
 export interface Config {
     css: string | undefined;
 
+    // privacy
     noTrack: boolean | undefined;
     noTyping: boolean | undefined;
+
+    // theming
     themeSync: boolean | undefined;
+
+    // launch
+    cmdPreset: string | undefined;
     quickstart: boolean | undefined;
     multiInstance: boolean | undefined;
     injectShelter: boolean | undefined;

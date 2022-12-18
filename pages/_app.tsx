@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import "../styles/styles.scss";
 import { Config, INative } from "../types/nucleus";
 
 export default function MyApp({ Component, pageProps }: { Component: any; pageProps: any }) {
@@ -78,6 +77,7 @@ function clientStubNative() {
                 noTrack: false,
                 noTyping: false,
                 themeSync: false,
+                cmdPreset: "perf",
                 quickstart: false,
                 multiInstance: false,
                 injectShelter: false

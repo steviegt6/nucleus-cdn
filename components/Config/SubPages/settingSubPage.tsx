@@ -17,22 +17,24 @@ export default function SettingsSubPage({ categoryId, category }: { categoryId: 
         hasInitConfig.current = true;
     }, []);
 
-    useEffect(() => {
-        setNoTrack(config?.noTrack ?? true);
-        setNoTyping(config?.noTyping ?? false);
-        setThemeSync(config?.themeSync ?? true);
-        setQuickstart(config?.quickstart ?? false);
-        setMultiInstance(config?.multiInstance ?? false);
-        setInjectShelter(config?.injectShelter ?? false);
-    }, [config]);
-
     // TODO: Add "Focus" - "Which aspect of the client to focus on." [performance, battery life, balanced]
     const [noTrack, setNoTrack] = useState(config?.noTrack ?? true);
     const [noTyping, setNoTyping] = useState(config?.noTyping ?? false);
     const [themeSync, setThemeSync] = useState(config?.themeSync ?? true);
+    const [cmdPreset, setCmdPreset] = useState(config?.cmdPreset ?? "perf");
     const [quickstart, setQuickstart] = useState(config?.quickstart ?? false);
     const [multiInstance, setMultiInstance] = useState(config?.multiInstance ?? false);
     const [injectShelter, setInjectShelter] = useState(config?.injectShelter ?? false);
+
+    useEffect(() => {
+        setNoTrack(config?.noTrack ?? true);
+        setNoTyping(config?.noTyping ?? false);
+        setThemeSync(config?.themeSync ?? true);
+        setCmdPreset(config?.cmdPreset ?? "perf");
+        setQuickstart(config?.quickstart ?? false);
+        setMultiInstance(config?.multiInstance ?? false);
+        setInjectShelter(config?.injectShelter ?? false);
+    }, [config]);
 
     useEffect(() => {
         if (!config) return;
@@ -40,11 +42,12 @@ export default function SettingsSubPage({ categoryId, category }: { categoryId: 
         config.noTrack = noTrack;
         config.noTyping = noTyping;
         config.themeSync = themeSync;
+        config.cmdPreset = cmdPreset;
         config.quickstart = quickstart;
         config.multiInstance = multiInstance;
         config.injectShelter = injectShelter;
         Native.set(config);
-    }, [config, noTrack, noTyping, themeSync, quickstart, multiInstance, injectShelter]);
+    }, [config, noTrack, noTyping, themeSync, cmdPreset, quickstart, multiInstance, injectShelter]);
 
     return (
         <SubPage categoryId={categoryId} category={category}>
@@ -58,11 +61,106 @@ export default function SettingsSubPage({ categoryId, category }: { categoryId: 
                 <SwitchOption labelText="Synced theming" noteText="Applies your theming to the splash screen and nucleus settings menu." value={themeSync} setValue={setThemeSync} topMargin />
 
                 <OptionHeader title="Launch" />
-                <SwitchOption labelText="Quickstart" noteText="Makes Discord start faster by skipping some steps, such as checking updates upon starting." value={quickstart} setValue={setQuickstart} experimental topMargin />
+                <RadioOption labelText="Focus" noteText="Which aspect of the client to focus on." radioOptions={{ "perf": "Performance", "battery": "Battery Life", "balanced": "Balanced" }} value={cmdPreset} setValue={setCmdPreset} topMargin />
+                <SwitchOption labelText="Quickstart" noteText="Makes Discord start faster by skipping some steps, such as checking updates upon starting." value={quickstart} setValue={setQuickstart} experimental />
                 <SwitchOption labelText="Multi-instance" noteText="Allows Discord to have multiple instances/windows open at once." value={multiInstance} setValue={setMultiInstance} experimental />
                 <SwitchOption labelText="shelter" noteText="Injects shelter, a client mod developed by uwu.network (ex-Cumcord developers)." value={injectShelter} setValue={setInjectShelter} experimental />
             </Children>
         </SubPage>
+    );
+}
+
+function RadioOption({
+    labelText,
+    noteText,
+    radioOptions,
+    noDivider = false,
+    topMargin = false,
+    experimental = false,
+    value,
+    setValue
+}: {
+    labelText: string;
+    noteText?: string | undefined;
+    radioOptions: { [key: string]: string };
+    noDivider?: boolean;
+    topMargin?: boolean;
+    experimental?: boolean;
+    value: string;
+    setValue: Dispatch<SetStateAction<string>>;
+}) {
+    const dividerDiv = !noDivider ? <div className={`${discord.divider} ${discord.dividerDefault}`} /> : <></>;
+    const noteDiv = noteText ? (
+        <div className={`${discord.note}`}>
+            <div className={`${discord.colorStandard} ${discord.size14} ${discord.description} ${discord.formText} ${discord.modeDefault}`}>{noteText}</div>
+        </div>
+    ) : (
+        <></>
+    );
+    const experimentalDiv = experimental ? (
+        <div style={{ backgroundColor: "var(--brand-500)" }} className={`${discord.betaTagIcon} ${discord.testBadge} ${discord.base} ${discord.badgeEyebrow} ${discord.baseShapeRound}`}>
+            Experimental
+        </div>
+    ) : (
+        <></>
+    );
+
+    function isSelected(optionValue: string) {
+        return value === optionValue;
+    }
+
+    function RadioOption({ optionText, optionValue }: { optionText: string; optionValue: string }) {
+        const svg = (
+            <svg aria-hidden="true" role="img" width="24" height="24" viewBox="0 0 24 24">
+                <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                    fill="currentColor"
+                ></path>
+                {isSelected(optionValue) ? <circle cx="12" cy="12" r="5" class="radioIconForeground-2BMavi" fill="currentColor"></circle> : <></>}
+            </svg>
+        );
+
+        return (
+            <div role="raido" aria-checked={isSelected(optionValue) ? "true" : "false"} onClick={() => setValue(optionValue)} className={`${discord.radioItem} ${discord.marginBottom8} ${discord.horizontal} ${discord.radioFlex} ${discord.directionRow} ${discord.itemFilled}`}>
+                <div className={`${discord.radioBar}`} style={{ padding: "10px" }}>
+                    <div>{svg}</div>
+                    <div className={`${discord.radioInfo}`}>
+                        <div className={`${discord.textMdMedium}`} data-text-variant="text-md/medium">
+                            {optionText}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    const constructedOptions = Object.entries(radioOptions).map(([optionValue, optionText]) => <RadioOption key={optionValue} optionText={optionText} optionValue={optionValue} />);
+    const radioDiv = (
+        <div role="radiogroup" aria-orientation="vertical" aria-disabled="false">
+            {...constructedOptions}
+        </div>
+    );
+
+    function ExperimentalWrapper({ children }: { children: React.ReactNode }) {
+        return experimental ? <div className={`${discord.betaTagContainer} ${/*discord.dependentSetting*/ ""}`}>{children}</div> : <>{children}</>;
+    }
+
+    return (
+        <div className={`${discord.container} ${topMargin ? discord.marginTop8 : ""} ${discord.marginBottom20}`}>
+            <div className={`${discord.labelRow}`}>
+                <label className={`${discord.labelTitle}`}>
+                    <ExperimentalWrapper>
+                        {labelText}
+                        {experimentalDiv}
+                    </ExperimentalWrapper>
+                </label>
+            </div>
+            {noteDiv}
+            {radioDiv}
+            {dividerDiv}
+        </div>
     );
 }
 
