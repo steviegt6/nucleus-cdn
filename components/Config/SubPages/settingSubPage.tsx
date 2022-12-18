@@ -65,7 +65,7 @@ export default function SettingsSubPage({ categoryId, category }: { categoryId: 
 
                 <OptionHeader title="Theming" />
                 <SwitchOption labelText="Synced theming" noteText="Applies your theming to the splash screen and nucleus settings menu." value={themeSync} setValue={setThemeSync} topMargin />
-                {supportsAcrylic ?? false ? <SwitchOption labelText="Acrylic window" noteText="(Windows Only) Applies the Windows acrylic effect to Discord using pykeio/vibe." value={acrylicWindow} setValue={setAcrylicWindow} /> : <></>}
+                {supportsAcrylic ?? false ? <SwitchOption labelText="Acrylic window" noteText="(Windows Only) Applies the Windows acrylic effect to Discord using pykeio/vibe." value={acrylicWindow} setValue={setAcrylicWindow} experimental /> : <></>}
 
                 <OptionHeader title="Launch" />
                 <RadioOption labelText="Focus" noteText="Which aspect of the client to focus on." radioOptions={{ "perf": "Performance", "battery": "Battery Life", "balanced": "Balanced" }} value={cmdPreset} setValue={setCmdPreset} topMargin />
