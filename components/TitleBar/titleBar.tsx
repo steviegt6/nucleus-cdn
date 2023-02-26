@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import * as discord from "../../styles/discord";
+import discord from "../../styles/discord";
 import { Config } from "../../types/nucleus";
 
 export default function TitleBar() {

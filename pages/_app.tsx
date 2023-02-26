@@ -1,15 +1,37 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { initializeDiscordStyles } from "../lib/discordStyles";
 import { Config, INative } from "../types/nucleus";
 
+export type PageProps = { cssErrored?: boolean };
+
 export default function MyApp({ Component, pageProps }: { Component: any; pageProps: any }) {
+    const [cssErrored, setCssErrored] = useState<boolean | undefined>(undefined);
+
     if (typeof window === "undefined") serverStubNative();
     else if (typeof Native === "undefined") clientStubNative();
 
     useEffect(() => {
         Native.initializeEnvironment();
-    });
+        setCssErrored(validateCss());
+    }, [setCssErrored]);
 
-    return <Component {...pageProps} />;
+    return <Component {...pageProps} cssErrored={cssErrored} />;
+}
+
+function validateCss(): boolean {
+    let styles = document.head.getElementsByTagName("style");
+
+    function waitAndTryAgain() {
+        let validated = false;
+        setTimeout(() => {
+            validated = validateCss();
+        }, 100);
+        return validated;
+    }
+
+    if (styles.length === 0) return waitAndTryAgain();
+
+    return initializeDiscordStyles(styles[0].innerText);
 }
 
 function serverStubNative() {

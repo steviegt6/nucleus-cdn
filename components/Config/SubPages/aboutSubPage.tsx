@@ -6,7 +6,7 @@ import SectionTitle from "../SectionTitle/sectionTitle";
 import SubSection from "../SubSection/subSection";
 import SubPage from "./subPage";
 import React from "react";
-import * as discord from "../../../styles/discord";
+import discord from "../../../styles/discord";
 
 export default function AboutSubPage({ categoryId, category }: { categoryId: string; category: string }) {
     return (

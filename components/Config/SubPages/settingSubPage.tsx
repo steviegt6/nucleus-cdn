@@ -1,7 +1,7 @@
 import Children from "../Children/children";
 import SectionTitle from "../SectionTitle/sectionTitle";
 import SubPage from "./subPage";
-import * as discord from "../../../styles/discord";
+import discord from "../../../styles/discord";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { Config } from "../../../types/nucleus";
 
@@ -97,13 +97,7 @@ function RadioOption({
     setValue: Dispatch<SetStateAction<string>>;
 }) {
     const dividerDiv = !noDivider ? <div className={`${discord.divider} ${discord.dividerDefault}`} /> : <></>;
-    const noteDiv = noteText ? (
-        <div className={`${discord.note}`}>
-            <div className={`${discord.colorStandard} ${discord.size14} ${discord.description} ${discord.formText} ${discord.modeDefault}`}>{noteText}</div>
-        </div>
-    ) : (
-        <></>
-    );
+    const noteDiv = noteText ? <div className={`${discord.colorStandard} ${discord.size14} ${discord.description} ${discord.formText} ${discord.marginBottom8} ${discord.modeDefault}`}>{noteText}</div> : <></>;
     const experimentalDiv = experimental ? (
         <div style={{ backgroundColor: "var(--brand-500)" }} className={`${discord.betaTagIcon} ${discord.testBadge} ${discord.base} ${discord.badgeEyebrow} ${discord.baseShapeRound}`}>
             Experimental
@@ -120,8 +114,8 @@ function RadioOption({
         const svg = (
             <svg aria-hidden="true" role="img" width="24" height="24" viewBox="0 0 24 24">
                 <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
                     d="M12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
                     fill="currentColor"
                 ></path>

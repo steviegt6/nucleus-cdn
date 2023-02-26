@@ -5,7 +5,7 @@ import GeneralText from "../GeneralText/generalText";
 import SectionTitle from "../SectionTitle/sectionTitle";
 import SubSection from "../SubSection/subSection";
 import SubPage from "./subPage";
-import * as discord from "../../../styles/discord";
+import discord from "../../../styles/discord";
 
 export default function ApacheLicenseSubPage({ categoryId, category }: { categoryId: string; category: string }) {
     return (

@@ -1,7 +1,7 @@
-import { createContext, Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Head from "next/head";
-import DiscordPage from "./discordPage";
-import * as discord from "../styles/discord";
+import DiscordPage from "../components/DiscordPage";
+import discord from "../styles/discord";
 import Header from "../components/Config/Header/header";
 import Button from "../components/Config/Button/button";
 import Separator from "../components/Config/Separator/separator";
@@ -13,27 +13,38 @@ import MITLicenseSubPage from "../components/Config/SubPages/mitLicenseSubPage";
 import ApacheLicenseSubPage from "../components/Config/SubPages/apacheLicenseSubPage";
 import CCLicenseSubPage from "../components/Config/SubPages/ccLicenseSubPage";
 import ThemingSubPage from "../components/Config/SubPages/themingSubPage";
+import { PageProps } from "./_app";
 
-export default function Config() {
+export default function Config(props: PageProps) {
+    const [page, setPage] = useState(<></>);
     const [category, setCategory] = useState("nucleus-settings");
 
     useEffect(() => {
-        console.log(category);
-    });
+        switch (props.cssErrored) {
+            case undefined:
+                setPage(<p>loading</p>);
+
+            default:
+                setPage(
+                    <DiscordPage {...props}>
+                        <div className={`${discord.layer}`}>
+                            <div className={`${discord.standardSidebarView}`} style={{ position: "absolute", opacity: 1 }}>
+                                <SidebarRegion category={category} setCategory={setCategory} />
+                                <ContentRegion category={category} setCategory={setCategory} />
+                            </div>
+                        </div>
+                    </DiscordPage>
+                );
+                break;
+        }
+    }, [setPage, props, category]);
 
     return (
         <>
             <Head>
-                <title>GUH</title>
+                <title>nucleus Settings</title>
             </Head>
-            <DiscordPage>
-                <div className={`${discord.layer}`}>
-                    <div className={`${discord.standardSidebarView}`} style={{ position: "absolute", opacity: 1 }}>
-                        <SidebarRegion category={category} setCategory={setCategory} />
-                        <ContentRegion category={category} setCategory={setCategory} />
-                    </div>
-                </div>
-            </DiscordPage>
+            {page}
         </>
     );
 }

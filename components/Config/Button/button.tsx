@@ -1,5 +1,5 @@
 import { Dispatch, MouseEventHandler, SetStateAction } from "react";
-import * as discord from "../../../styles/discord";
+import discord from "../../../styles/discord";
 
 export const BUTTON_PREFIX = "sidebar-button-";
 

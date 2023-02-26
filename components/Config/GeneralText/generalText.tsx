@@ -1,5 +1,5 @@
 import React from "react";
-import * as discord from "../../../styles/discord";
+import discord from "../../../styles/discord";
 
 export default function GeneralText({ className, children }: { className?: string | undefined; children: React.ReactNode }) {
     return (

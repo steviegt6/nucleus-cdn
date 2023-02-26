@@ -1,4 +1,4 @@
-import * as discord from "../../../styles/discord";
+import discord from "../../../styles/discord";
 
 export default function SubPage({ categoryId, category, children }: { categoryId: string; category: string; children: React.ReactNode }) {
     return (
