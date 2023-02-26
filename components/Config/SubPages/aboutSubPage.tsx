@@ -44,9 +44,6 @@ export default function AboutSubPage({ categoryId, category }: { categoryId: str
                     <ProjectWithLicense licenseName="CC 1.0 Universal" projectName="shelter" githubUrl="https://github.com/uwu/shelter">
                         shelter is a Discord client mod developed by uwu.network, specifically ex-Cumcord developers. nucleus optionally injects shelter using an adapted version of their injector.
                     </ProjectWithLicense>
-                    <ProjectWithLicense licenseName="Apache 2.0 License" projectName="vibe" githubUrl="https://github.com/pykeio/vibe">
-                        Provides acrylic windowing for Windows systems, which nucleus may optionally enable.
-                    </ProjectWithLicense>
                 </SubSection>
             </Children>
         </SubPage>

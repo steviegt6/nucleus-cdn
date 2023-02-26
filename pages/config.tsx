@@ -10,7 +10,6 @@ import InfoLine from "../components/Config/InfoLine/infoLine";
 import SettingsSubPage from "../components/Config/SubPages/settingSubPage";
 import AboutSubPage from "../components/Config/SubPages/aboutSubPage";
 import MITLicenseSubPage from "../components/Config/SubPages/mitLicenseSubPage";
-import ApacheLicenseSubPage from "../components/Config/SubPages/apacheLicenseSubPage";
 import CCLicenseSubPage from "../components/Config/SubPages/ccLicenseSubPage";
 import ThemingSubPage from "../components/Config/SubPages/themingSubPage";
 import { PageProps } from "./_app";
@@ -74,7 +73,6 @@ function SRContent({ category, setCategory }: { category: string; setCategory: D
             <Button categoryId="nucleus-about" buttonName="About" category={category} setCategory={setCategory} />
             {/*<Button categoryId="nucleus-credits" buttonName="Credits & Licensing" category={category} setCategory={setCategory} />*/}
             <Button categoryId="nucleus-license-mit" buttonName="MIT License" category={category} setCategory={setCategory} />
-            <Button categoryId="nucleus-license-apache" buttonName="Apache 2.0 License" category={category} setCategory={setCategory} />
             <Button categoryId="nucleus-license-cc" buttonName="CC 1.0 Universal" category={category} setCategory={setCategory} />
             <Separator />
             <SocialLinks />
@@ -111,7 +109,6 @@ function CRContent({ category, setCategory }: { category: string; setCategory: D
             <ThemingSubPage categoryId="nucleus-theming" category={category} />
             <AboutSubPage categoryId="nucleus-about" category={category} />
             <MITLicenseSubPage categoryId="nucleus-license-mit" category={category} />
-            <ApacheLicenseSubPage categoryId="nucleus-license-apache" category={category} />
             <CCLicenseSubPage categoryId="nucleus-license-cc" category={category} />
         </>
     );
