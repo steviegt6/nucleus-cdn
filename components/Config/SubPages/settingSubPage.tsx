@@ -123,7 +123,7 @@ function RadioOption({
         );
 
         return (
-            <div role="raido" aria-checked={isSelected(optionValue) ? "true" : "false"} onClick={() => setValue(optionValue)} className={`${discord.radioItem} ${discord.marginBottom8} ${discord.horizontal} ${discord.radioFlex} ${discord.directionRow} ${discord.itemFilled}`}>
+            <div role="radio" aria-checked={isSelected(optionValue) ? "true" : "false"} onClick={() => setValue(optionValue)} className={`${discord.radioItem} ${discord.marginBottom8} ${discord.horizontal} ${discord.radioFlex} ${discord.directionRow} ${discord.itemFilled}`}>
                 <div className={`${discord.radioBar} ${discord.radioPositionLeft}`} style={{ padding: "10px" }}>
                     <div>{svg}</div>
                     <div className={`${discord.radioInfo}`}>
