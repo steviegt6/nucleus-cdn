@@ -210,5 +210,5 @@ export function initializeDiscordStyles(css: string): boolean {
     discord.textMdMedium = validate(textMdMedium);
     discord.radioPositionLeft = validate(radioPositionLeft);
 
-    return errored;
+    return !errored;
 }

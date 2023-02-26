@@ -12,26 +12,27 @@ export default function MyApp({ Component, pageProps }: { Component: any; pagePr
 
     useEffect(() => {
         Native.initializeEnvironment();
-        setCssErrored(validateCss());
+
+        function tryValidate() {
+            setTimeout(() => {
+                const validated = validateCss();
+
+                if (validated === undefined) tryValidate();
+                else setCssErrored(!validated);
+            });
+        }
+
+        tryValidate();
     }, [setCssErrored]);
 
     return <Component {...pageProps} cssErrored={cssErrored} />;
 }
 
-function validateCss(): boolean {
-    let styles = document.head.getElementsByTagName("style");
+function validateCss(): boolean | undefined {
+    let style = document.getElementById("nucleus-discord-styles");
+    if (!style) return undefined;
 
-    function waitAndTryAgain() {
-        let validated = false;
-        setTimeout(() => {
-            validated = validateCss();
-        }, 100);
-        return validated;
-    }
-
-    if (styles.length === 0) return waitAndTryAgain();
-
-    return initializeDiscordStyles(styles[0].innerText);
+    return initializeDiscordStyles(style.innerText);
 }
 
 function serverStubNative() {
