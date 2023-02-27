@@ -8,6 +8,7 @@ export default function MyApp({ Component, pageProps }: { Component: any; pagePr
     const [cssErrored, setCssErrored] = useState<boolean | undefined>(undefined);
     const [usingStub, setUsingStub] = useState(false);
     const [usingFallbackCss, setUsingFallbackCss] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     if (typeof window === "undefined") serverStubNative();
     else if (typeof Native === "undefined") {
@@ -23,11 +24,13 @@ export default function MyApp({ Component, pageProps }: { Component: any; pagePr
                 const validated = validateCss(false);
 
                 if (validated === undefined) tryValidate();
+                else {
+                    if (validated === false || usingStub) {
+                        validateCss(true);
 
-                if (validated === false || usingStub) {
-                    validateCss(true);
-
-                    if (!usingStub) setCssErrored(!validated);
+                        if (!usingStub) setCssErrored(!validated);
+                        else setCssErrored(false);
+                    } else setCssErrored(!validated);
                 }
             });
         }
@@ -37,13 +40,14 @@ export default function MyApp({ Component, pageProps }: { Component: any; pagePr
 
     useEffect(() => {
         if (cssErrored === true || usingStub) setUsingFallbackCss(true);
-    }, [setUsingFallbackCss, cssErrored, usingStub]);
+        setLoading(false);
+    }, [setUsingFallbackCss, setLoading, cssErrored, usingStub]);
 
     return (
         <>
             {/* eslint-disable-next-line @next/next/no-css-tags */}
             {usingFallbackCss && <link rel="stylesheet" href="/fallback.css" />}
-            <Component {...pageProps} cssErrored={cssErrored} usingStub={usingStub} usingFallbackCss={usingFallbackCss} />
+            {loading ? <p>Loading...</p> : <Component {...pageProps} cssErrored={cssErrored} usingStub={usingStub} usingFallbackCss={usingFallbackCss} />}
         </>
     );
 }
