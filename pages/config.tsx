@@ -48,8 +48,6 @@ export default function Config(props: PageProps) {
     );
 }
 
-export function getServerSideProps() {}
-
 function SidebarRegion({ category, setCategory }: { category: string; setCategory: Dispatch<SetStateAction<string>> }) {
     return (
         <div className={`${discord.sidebarRegion}`}>
