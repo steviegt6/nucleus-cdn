@@ -2,37 +2,59 @@ import { useEffect, useState } from "react";
 import { initializeDiscordStyles } from "../lib/discordStyles";
 import { Config, INative } from "../types/nucleus";
 
-export type PageProps = { cssErrored?: boolean };
+export type PageProps = { cssErrored?: boolean; usingFallbackCss: boolean; usingStub: boolean };
 
 export default function MyApp({ Component, pageProps }: { Component: any; pageProps: any }) {
     const [cssErrored, setCssErrored] = useState<boolean | undefined>(undefined);
+    const [usingStub, setUsingStub] = useState(false);
+    const [usingFallbackCss, setUsingFallbackCss] = useState(false);
 
     if (typeof window === "undefined") serverStubNative();
-    else if (typeof Native === "undefined") clientStubNative();
+    else if (typeof Native === "undefined") {
+        clientStubNative();
+        setUsingStub(true);
+    }
 
     useEffect(() => {
         Native.initializeEnvironment();
 
         function tryValidate() {
             setTimeout(() => {
-                const validated = validateCss();
+                const validated = validateCss(false);
 
                 if (validated === undefined) tryValidate();
-                else setCssErrored(!validated);
+
+                if (validated === false || usingStub) {
+                    validateCss(true);
+
+                    if (!usingStub) setCssErrored(!validated);
+                }
             });
         }
 
         tryValidate();
-    }, [setCssErrored]);
+    }, [setCssErrored, usingStub]);
 
-    return <Component {...pageProps} cssErrored={cssErrored} />;
+    useEffect(() => {
+        if (cssErrored === true || usingStub) setUsingFallbackCss(true);
+    }, [setUsingFallbackCss, cssErrored, usingStub]);
+
+    return (
+        <>
+            {/* eslint-disable-next-line @next/next/no-css-tags */}
+            {usingFallbackCss && <link rel="stylesheet" href="/fallback.css" />}
+            <Component {...pageProps} cssErrored={cssErrored} usingStub={usingStub} usingFallbackCss={usingFallbackCss} />
+        </>
+    );
 }
 
-function validateCss(): boolean | undefined {
+function validateCss(fallback: boolean): boolean | undefined {
+    if (fallback) return initializeDiscordStyles("", true);
+
     let style = document.getElementById("nucleus-discord-styles");
     if (!style) return undefined;
 
-    return initializeDiscordStyles(style.innerText);
+    return initializeDiscordStyles(style.innerText, false);
 }
 
 function serverStubNative() {

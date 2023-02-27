@@ -1,4 +1,4 @@
-.warningBanner {
+.banner {
     width: 100%;
     height: 36px;
 
@@ -10,7 +10,6 @@
     font-size: 14px;
 
     color: white;
-    background-color: #ed4245;
 
     top: 22px;
     bottom: calc(100% - 58px);
