@@ -1,0 +1,13 @@
+All files in this repository, unless otherwise specified (bellow), are licensed
+under the GNU General Public License, version 3.0 (GPLv3), are are subject to
+the terms outlined in the `LICENSE-GPL` file.
+
+Files not subject to the GPLv3 license are as follows:
+
+  All files within `public/splash/`, `public/discord_loading.webm`,
+    and `public/fallback.css` belong to Discord Inc., All Rights Reserved.
+
+  `public/whiteney_400.woff` belongs to Hoefler & Co., All Rights Reserved.
+
+  `public/flags.json` is licensed under the MIT license, as outlined in
+    `LICENSE-MIT`.
